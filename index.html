@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b23c9">
+<meta property="og:title" content="RESET 2026 • BRASIL">
+<meta property="og:description" content="Igreja Batista Nacional Candeias — links, preletores do dia e stickers oficiais do Reset 2026.">
+<meta property="og:image" content="assets/img/banner-pedro-vuks.png">
+<title>RESET 2026 • BRASIL — Links</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b23c9'/%3E%3Cpath d='M12 3.6 14.4 9.4 20.7 9.9 15.9 14 17.4 20.1 12 16.8 6.6 20.1 8.1 14 3.3 9.9 9.6 9.4Z' fill='%23ffd400'/%3E%3C/svg%3E">
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ✏️  EDITE AQUI — TUDO QUE MUDA DURANTE A CONFERÊNCIA
+   ═══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+
+  /* Chip que aparece abaixo do logo (frase curta) */
+  chip: "TUDO POR ELE!",
+
+  /* ── PRELETORES DO DIA ──────────────────────────────────────
+     Troque conforme o dia da conferência.
+     Coloque os banners novos em assets/img/ e aponte aqui.   */
+  tituloPreletores: "PRELETORES DE HOJE",
+  preletores: [
+    { nome: "Pedro Vuks",     imagem: "assets/img/banner-pedro-vuks.png" },
+    { nome: "Pedro Bertoldo", imagem: "assets/img/banner-pedro-bertoldo.png" },
+  ],
+
+  /* ── LINKS ──────────────────────────────────────────────────
+     Troque "#" pelo link real. Pode adicionar/remover linhas.
+     url: null  →  botão desativado, mostra o aviso "EM BREVE".
+     (quando as fotos saírem, troque o null pelo link da pasta) */
+  links: [
+    { rotulo: "FOTOS",            url: null, aviso: "AINDA NÃO DISPONÍVEL" },
+    { rotulo: "PROGRAMAÇÃO",      url: "#" },
+    { rotulo: "ASSISTA AO VIVO",  url: "#" },
+    { rotulo: "INSTAGRAM",        url: "#" },
+    { rotulo: "COMO CHEGAR",      url: "https://maps.app.goo.gl/fLGkFGEtF8PALDd69" },
+  ],
+
+  /* ── STICKERS ───────────────────────────────────────────────
+     Quantidade de arquivos em assets/stickers/
+     (sticker-01.png até sticker-NN.png)                       */
+  qtdStickers: 24,
+  zipStickers: "assets/img/stickers-reset26.zip",
+};
+/* ═══════════════════════════════════════════════════════════════ */
+</script>
+
+<style>
+  @font-face {
+    font-family: "Freshman";
+    src: url("assets/fonts/Freshman.ttf") format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Varsity";
+    src: url("assets/fonts/varsity_regular.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  :root {
+    --azul: #0b23c9;
+    --azul-escuro: #071694;
+    --azul-dot: #0517a3;
+    --verde: #0f9d3a;
+    --verde-escuro: #0a6423;
+    --amarelo: #ffd400;
+    --creme: #f6f1e3;
+    --preto: #101010;
+    --branco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--branco);
+    background: var(--azul-escuro);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── FUNDO: split diagonal verde/azul com halftone, estrelas e trajetórias ── */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(var(--azul-dot) 1.7px, transparent 1.7px),
+      linear-gradient(155deg, #1436e6 0%, var(--azul) 45%, var(--azul-escuro) 100%);
+    background-size: 15px 15px, cover;
+  }
+  .bg-verde {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(140deg, #23b552 0%, var(--verde) 40%, var(--verde-escuro) 100%);
+    clip-path: polygon(0 0, 78% 0, 0 72%);
+    pointer-events: none;
+  }
+  .bg-decor {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .bg-ghost {
+    position: fixed;
+    bottom: -2vh;
+    left: -4vw;
+    z-index: -1;
+    font-family: "Freshman", sans-serif;
+    font-size: clamp(90px, 22vw, 220px);
+    line-height: .82;
+    color: rgba(255, 255, 255, .05);
+    letter-spacing: .02em;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ── COLUNA CENTRAL ── */
+  .wrap {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 40px 20px 56px;
+  }
+
+  /* ── CABEÇALHO / LOGO ── */
+  header { text-align: center; }
+
+  .igreja {
+    display: inline-block;
+    line-height: 1.1;
+  }
+  .igreja small {
+    display: block;
+    font-size: 11px;
+    letter-spacing: .34em;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: .92;
+  }
+  .igreja strong {
+    display: block;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    letter-spacing: .18em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .lockup { margin-top: 30px; }
+  .lockup h1 { line-height: 0; }
+  .lockup-logo {
+    width: min(100%, 470px);
+    height: auto;
+    filter: drop-shadow(0 5px 0 rgba(0, 0, 0, .22));
+  }
+  .chip {
+    display: inline-block;
+    margin-top: 22px;
+    background: var(--amarelo);
+    color: var(--preto);
+    font-family: "Varsity", sans-serif;
+    font-size: 17px;
+    letter-spacing: .12em;
+    padding: 8px 22px 6px;
+    border: 3px solid var(--preto);
+    border-radius: 999px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .35);
+    transform: rotate(-2deg);
+  }
+
+  /* ── TÍTULOS DE SEÇÃO ── */
+  .secao { margin-top: 52px; }
+  .secao-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    font-family: "Freshman", sans-serif;
+    font-size: clamp(21px, 5.4vw, 27px);
+    letter-spacing: .06em;
+    text-shadow: 0 3px 0 rgba(0, 0, 0, .25);
+  }
+  .secao-titulo svg { width: 17px; height: 17px; fill: var(--amarelo); flex: none; }
+  .secao-sub {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14.5px;
+    line-height: 1.5;
+    opacity: .92;
+  }
+
+  /* ── PRELETORES ── */
+  .preletor {
+    display: block;
+    margin-top: 18px;
+    border: 3px solid var(--preto);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--azul-escuro);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, .35);
+  }
+  .preletor img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .preletor figcaption {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 14px 7px;
+    background: var(--preto);
+    font-family: "Varsity", sans-serif;
+    font-size: 16px;
+    letter-spacing: .14em;
+    color: var(--amarelo);
+    text-transform: uppercase;
+  }
+  .preletor figcaption svg { width: 12px; height: 12px; fill: var(--amarelo); flex: none; }
+
+  /* ── LINKS ── */
+  .links { margin-top: 20px; display: grid; gap: 14px; }
+  .botao {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--creme);
+    color: var(--azul-escuro);
+    text-decoration: none;
+    font-family: "Varsity", sans-serif;
+    font-size: 21px;
+    letter-spacing: .08em;
+    padding: 16px 18px 14px;
+    border: 3px solid var(--preto);
+    border-radius: 16px;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .35);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .botao:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 rgba(0, 0, 0, .35); }
+  .botao:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 rgba(0, 0, 0, .35); }
+  .botao .estrela {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    background: var(--amarelo);
+    border: 2.5px solid var(--preto);
+    border-radius: 10px;
+  }
+  .botao .estrela svg { width: 16px; height: 16px; fill: var(--preto); }
+  .botao .seta { margin-left: auto; flex: none; font-family: sans-serif; font-weight: 800; font-size: 20px; }
+
+  /* botão desativado (url: null no CONFIG) */
+  .botao-off,
+  .botao-off:hover,
+  .botao-off:active {
+    opacity: .6;
+    filter: saturate(.3);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
+  }
+  .botao .aviso {
+    margin-left: auto;
+    flex: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: .09em;
+    background: var(--preto);
+    color: var(--branco);
+    padding: 5px 9px 4px;
+    border-radius: 7px;
+    white-space: nowrap;
+  }
+
+  /* ── STICKERS ── */
+  .stickers-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .sticker {
+    position: relative;
+    aspect-ratio: 1;
+    min-height: 0;
+    background: var(--creme);
+    border: 3px solid var(--preto);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .3);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .sticker:hover { transform: translate(-2px, -2px) rotate(-1.5deg); box-shadow: 6px 6px 0 rgba(0, 0, 0, .3); }
+  .sticker:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(0, 0, 0, .3); }
+  /* imagem fora do fluxo: célula fica quadrada de verdade,
+     sem o loop de tamanho intrínseco do grid + aspect-ratio */
+  .sticker img {
+    position: absolute;
+    inset: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    object-fit: contain;
+  }
+  .sticker .baixar {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    background: var(--amarelo);
+    border: 2px solid var(--preto);
+    border-radius: 7px;
+  }
+  .sticker .baixar svg { width: 11px; height: 11px; fill: var(--preto); }
+
+  .botao-zip {
+    margin-top: 18px;
+    justify-content: center;
+    background: var(--amarelo);
+    color: var(--preto);
+    text-align: center;
+  }
+  .botao-zip .estrela { background: var(--creme); }
+
+  /* ── RODAPÉ ── */
+  footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    line-height: 2;
+    opacity: .85;
+  }
+  footer .brasil {
+    font-family: "Freshman", sans-serif;
+    font-size: 15px;
+    letter-spacing: .12em;
+  }
+  footer .ftr-star svg {
+    width: 10px;
+    height: 10px;
+    fill: var(--amarelo);
+    vertical-align: 1px;
+  }
+
+  @media (max-width: 380px) {
+    .stickers-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-verde"></div>
+
+<!-- estrelas amarelas + trajetórias pontilhadas (decoração fixa) -->
+<svg class="bg-decor" viewBox="0 0 400 860" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <path id="star5" d="M12 0 L15.2 8.2 L24 8.8 L17.2 14.5 L19.4 23 L12 18.3 L4.6 23 L6.8 14.5 L0 8.8 L8.8 8.2 Z"/>
+  </defs>
+  <g fill="#ffd400" opacity=".9">
+    <use href="#star5" transform="translate(340,60) scale(3.4) rotate(12 12 12)"/>
+    <use href="#star5" transform="translate(-18,470) scale(2.6) rotate(-15 12 12)"/>
+    <use href="#star5" transform="translate(310,640) scale(2.2) rotate(24 12 12)"/>
+    <use href="#star5" transform="translate(40,120) scale(1.1) rotate(-8 12 12)" opacity=".55"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="3.5" stroke-dasharray="1 14" stroke-linecap="round" opacity=".8">
+    <path d="M 330 150 Q 250 230 320 330 T 260 520"/>
+    <path d="M 60 540 Q 140 600 90 700 T 160 850"/>
+  </g>
+</svg>
+
+<div class="bg-ghost">RESET<br>2026</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="igreja">
+      <small>Igreja Batista Nacional</small>
+      <strong>Candeias</strong>
+    </div>
+
+    <div class="lockup">
+      <h1><img class="lockup-logo" src="assets/img/logo-resetbrasil26.png" alt="RESET 2026 BRASIL"></h1>
+      <div><span class="chip" id="chip"></span></div>
+    </div>
+  </header>
+
+  <!-- PRELETORES DO DIA -->
+  <section class="secao" id="secao-preletores">
+    <h2 class="secao-titulo" id="titulo-preletores"></h2>
+    <div id="lista-preletores"></div>
+  </section>
+
+  <!-- LINKS -->
+  <section class="secao">
+    <h2 class="secao-titulo" id="titulo-links">LINKS</h2>
+    <nav class="links" id="lista-links"></nav>
+  </section>
+
+  <!-- STICKERS -->
+  <section class="secao">
+    <h2 class="secao-titulo">STICKERS OFICIAIS</h2>
+    <p class="secao-sub">Toque no sticker para baixar.<br>Poste nos stories e marque a gente! 💚💛💙</p>
+    <div class="stickers-grid" id="lista-stickers"></div>
+    <a class="botao botao-zip" id="botao-zip" download>
+      <span class="estrela" aria-hidden="true"></span>
+      BAIXAR TODOS (.ZIP)
+    </a>
+  </section>
+
+  <footer>
+    <div>Igreja Batista Nacional Candeias</div>
+    <div class="brasil">RESET 2026 <span class="ftr-star" aria-hidden="true"></span> BRASIL</div>
+  </footer>
+
+</div>
+
+<script>
+  const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .6 15.2 8.4 23.6 9 17.2 14.5 19.2 22.7 12 18.3 4.8 22.7 6.8 14.5 .4 9 8.8 8.4Z"/></svg>';
+  const DOWN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v11l4-4 1.6 1.5L12 17 5.4 10.5 7 9l4 4V2zM4 19h16v2H4z"/></svg>';
+
+  /* chip */
+  document.getElementById("chip").textContent = CONFIG.chip;
+
+  /* preletores do dia */
+  document.getElementById("titulo-preletores").innerHTML = STAR + " " + CONFIG.tituloPreletores + " " + STAR;
+  document.getElementById("lista-preletores").innerHTML = CONFIG.preletores.map(p => `
+    <figure class="preletor">
+      <img src="${p.imagem}" alt="Banner do preletor ${p.nome}" loading="lazy">
+      <figcaption>${STAR} ${p.nome}</figcaption>
+    </figure>`).join("");
+
+  /* links (url: null → botão desativado com aviso) */
+  document.getElementById("titulo-links").innerHTML = STAR + " LINKS " + STAR;
+  document.getElementById("lista-links").innerHTML = CONFIG.links.map(l => {
+    if (!l.url) return `
+    <span class="botao botao-off" aria-disabled="true">
+      <span class="estrela" aria-hidden="true">${STAR}</span>
+      ${l.rotulo}
+      <span class="aviso">${l.aviso || "EM BREVE"}</span>
+    </span>`;
+    return `
+    <a class="botao" href="${l.url}" target="_blank" rel="noopener">
+      <span class="estrela" aria-hidden="true">${STAR}</span>
+      ${l.rotulo}
+      <span class="seta" aria-hidden="true">→</span>
+    </a>`;
+  }).join("");
+
+  /* stickers */
+  const pad = n => String(n).padStart(2, "0");
+  document.getElementById("lista-stickers").innerHTML =
+    Array.from({ length: CONFIG.qtdStickers }, (_, i) => {
+      const n = pad(i + 1);
+      return `
+      <a class="sticker" href="assets/stickers/sticker-${n}.png" download="RESET26-sticker-${n}.png"
+         title="Baixar sticker ${n}">
+        <img src="assets/stickers/sticker-${n}.png" alt="Sticker Reset 2026 número ${n}" loading="lazy">
+        <span class="baixar" aria-hidden="true">${DOWN}</span>
+      </a>`;
+    }).join("");
+
+  document.getElementById("botao-zip").href = CONFIG.zipStickers;
+
+  /* estrela do rodapé (a fonte Freshman não tem o glifo ★) */
+  document.querySelector(".ftr-star").innerHTML = STAR;
+</script>
+
+</body>
+</html>
