@@ -29,6 +29,24 @@ const CONFIG = {
     { nome: "Matheus Brito", imagem: "assets/img/banner-matheus-brito.png" },
   ],
 
+  /* ── GALERIA (carrossel) ────────────────────────────────────
+     Coloque as fotos em assets/fotos/ e liste aqui.
+     Pode adicionar/remover linhas à vontade.                  */
+  fotos: {
+    titulo: "MELHORES MOMENTOS",
+    verTodas: "https://reset-conference.ai.studio",
+    imagens: [
+      "assets/fotos/foto-01.jpg",
+      "assets/fotos/foto-02.jpg",
+      "assets/fotos/foto-03.jpg",
+      "assets/fotos/foto-04.jpg",
+      "assets/fotos/foto-05.jpg",
+      "assets/fotos/foto-06.jpg",
+      "assets/fotos/foto-07.jpg",
+      "assets/fotos/foto-08.jpg",
+    ],
+  },
+
   /* ── LINKS ──────────────────────────────────────────────────
      Troque "#" pelo link real. Pode adicionar/remover linhas.
      url: null  →  botão desativado, mostra o aviso "EM BREVE".
@@ -230,6 +248,81 @@ const CONFIG = {
   }
   .preletor figcaption svg { width: 12px; height: 12px; fill: var(--amarelo); flex: none; }
 
+  /* ── GALERIA: carrossel de fotos ── */
+  .carrossel { position: relative; margin-top: 6px; }
+  .trilho {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 18px 4px 20px;
+    scrollbar-width: none;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .foto-card {
+    position: relative;
+    flex: 0 0 76%;
+    max-width: 330px;
+    scroll-snap-align: center;
+    border: 3px solid var(--preto);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--azul-escuro);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .35);
+  }
+  .foto-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .foto-card .num-foto {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-family: "Freshman", sans-serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--preto);
+    background: var(--amarelo);
+    border: 2px solid var(--preto);
+    border-radius: 8px;
+    padding: 4px 8px 3px;
+  }
+  .seta-carrossel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: var(--amarelo);
+    border: 3px solid var(--preto);
+    border-radius: 50%;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .35);
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--preto);
+    transition: transform .12s ease;
+  }
+  .seta-carrossel:hover { transform: translateY(-50%) scale(1.08); }
+  .seta-carrossel:active { transform: translateY(-50%) scale(.94); }
+  .seta-carrossel.esq { left: -6px; }
+  .seta-carrossel.dir { right: -6px; }
+  .arrasta {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-top: -4px;
+  }
+  .botao-galeria { margin-top: 16px; }
+
   /* ── LINKS ── */
   .links { margin-top: 20px; display: grid; gap: 14px; }
   .botao {
@@ -409,6 +502,18 @@ const CONFIG = {
     <div id="lista-preletores"></div>
   </section>
 
+  <!-- GALERIA / MELHORES MOMENTOS -->
+  <section class="secao" id="secao-galeria">
+    <h2 class="secao-titulo" id="titulo-galeria"></h2>
+    <div class="carrossel">
+      <button class="seta-carrossel esq" id="seta-esq" aria-label="Foto anterior">←</button>
+      <div class="trilho" id="trilho-fotos"></div>
+      <button class="seta-carrossel dir" id="seta-dir" aria-label="Próxima foto">→</button>
+    </div>
+    <p class="arrasta">← arrasta pro lado →</p>
+    <nav class="links botao-galeria" id="ver-todas"></nav>
+  </section>
+
   <!-- LINKS -->
   <section class="secao">
     <h2 class="secao-titulo" id="titulo-links">LINKS</h2>
@@ -447,6 +552,25 @@ const CONFIG = {
       <img src="${p.imagem}" alt="Banner do preletor ${p.nome}" loading="lazy">
       <figcaption>${STAR} ${p.nome}</figcaption>
     </figure>`).join("");
+
+  /* galeria: carrossel de fotos */
+  document.getElementById("titulo-galeria").innerHTML = STAR + " " + CONFIG.fotos.titulo + " " + STAR;
+  const padF = n => String(n).padStart(2, "0");
+  document.getElementById("trilho-fotos").innerHTML = CONFIG.fotos.imagens.map((src, i) => `
+    <figure class="foto-card">
+      <img src="${src}" alt="Foto do Reset 2026 número ${i + 1}" loading="lazy">
+      <span class="num-foto">FOTO ${padF(i + 1)}</span>
+    </figure>`).join("");
+  document.getElementById("ver-todas").innerHTML = `
+    <a class="botao" href="${CONFIG.fotos.verTodas}" target="_blank" rel="noopener">
+      <span class="estrela" aria-hidden="true">${STAR}</span>
+      VER TODAS AS FOTOS
+      <span class="seta" aria-hidden="true">→</span>
+    </a>`;
+  const trilho = document.getElementById("trilho-fotos");
+  const passo = () => (trilho.querySelector(".foto-card")?.offsetWidth || 280) + 16;
+  document.getElementById("seta-esq").onclick = () => trilho.scrollBy({ left: -passo(), behavior: "smooth" });
+  document.getElementById("seta-dir").onclick = () => trilho.scrollBy({ left: passo(), behavior: "smooth" });
 
   /* links (url: null → botão desativado com aviso) */
   document.getElementById("titulo-links").innerHTML = STAR + " LINKS " + STAR;
