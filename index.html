@@ -144,23 +144,12 @@ const CONFIG = {
     pointer-events: none;
   }
 
-  /* ── COLUNA CENTRAL (mobile: coluna única; desktop: 2 colunas) ── */
+  /* ── COLUNA CENTRAL ── */
   .wrap {
     max-width: 540px;
     margin: 0 auto;
     padding: 40px 20px 56px;
-    display: flex;
-    flex-direction: column;
   }
-  /* no mobile os wrappers "somem" e as seções viram itens da coluna,
-     ordenadas como sempre foram */
-  .col-esq, .col-dir { display: contents; }
-  header             { order: 1; }
-  #secao-preletores  { order: 2; }
-  #secao-galeria     { order: 3; }
-  #secao-links       { order: 4; }
-  #secao-stickers    { order: 5; }
-  footer             { order: 6; }
 
   /* ── CABEÇALHO / LOGO ── */
   header { text-align: center; }
@@ -467,34 +456,6 @@ const CONFIG = {
   @media (max-width: 380px) {
     .stickers-grid { grid-template-columns: repeat(2, 1fr); }
   }
-
-  /* ── DESKTOP (≥1080px): 2 colunas — esquerda fixa, direita rola ── */
-  @media (min-width: 1080px) {
-    .wrap {
-      display: grid;
-      max-width: 1250px;
-      grid-template-columns: 430px minmax(0, 1fr);
-      column-gap: 72px;
-      align-items: start;
-      padding: 56px 40px 72px;
-    }
-    .col-esq {
-      display: block;
-      position: sticky;
-      top: 28px;
-    }
-    .col-dir { display: block; min-width: 0; }
-    footer { grid-column: 1 / -1; margin-top: 72px; }
-
-    .lockup-logo { width: min(100%, 400px); }
-    #secao-links { margin-top: 40px; }
-    #secao-preletores { margin-top: 0; }
-
-    .arrasta { display: none; }
-    .foto-card { flex: 0 0 330px; }
-    .stickers-grid { grid-template-columns: repeat(6, 1fr); }
-    .bg-ghost { font-size: clamp(120px, 15vw, 280px); }
-  }
 </style>
 </head>
 <body>
@@ -523,8 +484,6 @@ const CONFIG = {
 
 <div class="wrap">
 
-  <aside class="col-esq">
-
   <header>
     <div class="igreja">
       <small>Igreja Batista Nacional</small>
@@ -536,16 +495,6 @@ const CONFIG = {
       <div><span class="chip" id="chip"></span></div>
     </div>
   </header>
-
-  <!-- LINKS -->
-  <section class="secao" id="secao-links">
-    <h2 class="secao-titulo" id="titulo-links">LINKS</h2>
-    <nav class="links" id="lista-links"></nav>
-  </section>
-
-  </aside>
-
-  <main class="col-dir">
 
   <!-- PRELETORES DO DIA -->
   <section class="secao" id="secao-preletores">
@@ -565,8 +514,14 @@ const CONFIG = {
     <nav class="links botao-galeria" id="ver-todas"></nav>
   </section>
 
+  <!-- LINKS -->
+  <section class="secao">
+    <h2 class="secao-titulo" id="titulo-links">LINKS</h2>
+    <nav class="links" id="lista-links"></nav>
+  </section>
+
   <!-- STICKERS -->
-  <section class="secao" id="secao-stickers">
+  <section class="secao">
     <h2 class="secao-titulo">STICKERS OFICIAIS</h2>
     <p class="secao-sub">Toque no sticker para baixar.<br>Poste nos stories e marque a gente! 💚💛💙</p>
     <div class="stickers-grid" id="lista-stickers"></div>
@@ -575,8 +530,6 @@ const CONFIG = {
       BAIXAR TODOS (.ZIP)
     </a>
   </section>
-
-  </main>
 
   <footer>
     <div>Igreja Batista Nacional Candeias</div>
@@ -594,14 +547,9 @@ const CONFIG = {
 
   /* preletores do dia */
   document.getElementById("titulo-preletores").innerHTML = STAR + " " + CONFIG.tituloPreletores + " " + STAR;
-  /* banners .jpg têm versão -810.jpg para telas menores (srcset) */
-  const srcsetBanner = src => src.endsWith(".jpg")
-    ? `srcset="${src.replace(/\.jpg$/, "-810.jpg")} 810w, ${src} 1620w"
-       sizes="(min-width: 1080px) 690px, calc(100vw - 46px)"`
-    : "";
   document.getElementById("lista-preletores").innerHTML = CONFIG.preletores.map((p, i) => `
     <figure class="preletor">
-      <img src="${p.imagem}" ${srcsetBanner(p.imagem)} alt="Banner do preletor ${p.nome}"
+      <img src="${p.imagem}" alt="Banner do preletor ${p.nome}"
            ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
       <figcaption>${STAR} ${p.nome}</figcaption>
     </figure>`).join("");
